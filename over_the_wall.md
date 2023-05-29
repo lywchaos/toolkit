@@ -17,4 +17,4 @@ For browser, use extensions to manage your proxy is recommended. (e.g. SwitchyOm
 1. 手动上去搭 shadowssocks server
 1. 本机 sslocal 上去
 
-现代做法：机场
+现代做法：机场(e.g. clash)
