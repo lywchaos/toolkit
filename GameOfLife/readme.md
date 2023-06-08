@@ -7,4 +7,5 @@ python3 GameOfLife.py
 
 # TODOS
 
-1. find special patterns
+- [ ] find special patterns
+- [ ] detect stable state and randomly disturb
