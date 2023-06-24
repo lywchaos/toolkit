@@ -48,6 +48,9 @@ pub mod gol {
                     let dir = [-1, 0, 1];
                     for m in dir {
                         for n in dir {
+                            if m == 0 && n == 0 {
+                                continue;
+                            }
                             let ii = i + m;
                             let jj = j + n;
                             let tmp = if ii > -1 && ii < self.field.len() as i32 && jj > -1 && jj < self.field.get(0).unwrap().len() as i32 {self.field[ii as usize][jj as usize]} else {0};

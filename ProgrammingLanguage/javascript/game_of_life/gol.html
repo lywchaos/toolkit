@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            td {
+                height: 14px;
+                width: 14px;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+    </body>
+
+    <script>
+        // init
+        const height = 50;
+        const width = 50;
+        const map = new Array(height).fill().map(() => new Array(width).fill(0));
+        for (let i = 0; i < height; i++) {
+            for (let j = 0; j < width; j++) {
+                map[i][j] = Math.random() < 0.3 ? 1 : 0;
+            }
+        }
+        const table = document.createElement('table');
+        for (let i = 0; i < height; i++) {
+            const tr = document.createElement('tr');
+            for (let j = 0; j < width; j++) {
+                const td = document.createElement('td');
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+        document.body.appendChild(table);
+
+
+        function step() {
+            let neighbor = new Array(height).fill().map(() => new Array(width).fill(0));
+            console.log("step");
+            for (let i = 0; i < height; i++) {
+                for (let j = 0; j < width; j++) {
+                    let cnt = 0;
+                    let dir = [-1, 0, 1];
+                    for (let m of dir) {
+                        for (let n of dir) {
+                            if (m === 0 && n === 0) continue;
+                            let ii = i + m;
+                            let jj = j + n;
+                            let tmp = ii > -1 && ii < height && jj > -1 && jj < width ? map[ii][jj] : 0;
+                            cnt += tmp;
+                        }
+                    }
+                    neighbor[i][j] = cnt;
+                }
+            }
+
+            for (let i = 0; i < height; i++) {
+                for (let j = 0; j < width; j++) {
+                    if (neighbor[i][j] <= 1 && map[i][j] == 1) {
+                        map[i][j] = 0;
+                    }
+                    else if (neighbor[i][j] == 2) {
+                        ;
+                    }
+                    else if (neighbor[i][j] == 3) {
+                        if (map[i][j] == 1) {
+                            ;
+                        }
+                        else {
+                            map[i][j] = 1;
+                        }
+                    }
+                    else {
+                        if (map[i][j] == 1) {
+                            map[i][j] = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        function show() {
+            console.log("show");
+            for (let i = 0; i < height; i++) {
+                for (let j = 0; j < width; j++) {
+                    if (map[i][j] === 0) {
+                        table.rows[i].cells[j].style.backgroundColor = "";
+                    }
+                    else {
+                        table.rows[i].cells[j].style.backgroundColor = "black";
+                    }
+                }
+            }
+        }
+
+        async function loop() {
+            for (;;) {
+                await new Promise(function(resolve, reject) {
+                    setTimeout(() => {
+                        step();
+                        resolve();
+                    }, 100);
+                }).then(function(result) {
+                    show();
+                });
+            }
+        }
+
+        // show();
+        
+        loop();
+    </script>
+</html>
